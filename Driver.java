@@ -1,13 +1,13 @@
+import java.math.BigDecimal;
 
 public class Driver{
 
 	public static void main(String[] args) {
 		Function fun = new Erf();
 		Long time = System.nanoTime();
-		System.out.println(fun.evaulate(1));
+		System.out.println(fun.evaulate(new BigDecimal(1), 50).doubleValue());
 		System.out.println("Took: " + (System.nanoTime()-time));
-		// Lower Bound, Upper Bound, LS Intervals, Polynomial count, Precision (decimal places)
-		double[] polynomial = Aproximate.aproximate(fun,0,4,100, 30, 50);
+		double[] polynomial = Aproximate.aproximate(fun,0,4,100, 40, 50);
 		time = System.nanoTime();
 		double x=1.0;
 		double sum = 0.0;

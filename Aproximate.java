@@ -26,7 +26,7 @@ static private MathContext PRECISION;
 
 		BigDecimal[][] B = new BigDecimal[A.length][1];
 		for (BigDecimal a = new BigDecimal(0, PRECISION); a.doubleValue() < B.length; a = a.add(new BigDecimal(1, PRECISION), PRECISION)) {
-			BigDecimal temp = new BigDecimal(func.evaulate(a.multiply(increment, PRECISION).add(lowerBound,PRECISION).doubleValue()), PRECISION);
+			BigDecimal temp = func.evaulate(a.multiply(increment, PRECISION).add(lowerBound,PRECISION), precision);
 			B[(int) a.doubleValue()][0] = temp;
 		}
 		// B setup
@@ -67,7 +67,7 @@ static private MathContext PRECISION;
 			int largest = a - rowAdjustor;
 			for (int b = a - rowAdjustor; b < input.length; b++) {
 				//if (Math.abs(input[b][a]) > Math.abs(input[largest][a])) {
-				if ((input[b][a]).abs().compareTo((input[largest][a]).abs()) > 0) {
+				if ((input[b][a]).abs(PRECISION).compareTo((input[largest][a]).abs(PRECISION)) > 0) {
 
 					largest = b;
 				}

@@ -1,24 +1,31 @@
+import java.math.BigDecimal;
+import java.math.MathContext;
 
 public class Erf implements Function{
 
 	@Override
-	public double evaulate(double X) {
-		double sum = 0;
-		double n = 3000;
-		double increment = (X)/n;
-		sum += Math.exp(-Math.pow(0, 2));
-		for(double a = 1.0; a < n; a = a + 1.0) {
+	public BigDecimal evaulate(BigDecimal X, int precision) {
+		MathContext PRECISION = new MathContext(precision);
+		BigDecimal sum = new BigDecimal(0, PRECISION);
+		BigDecimal n = new BigDecimal(5000,PRECISION);
+		BigDecimal increment = (X).divide(n, PRECISION);
+		BigDecimal four = new BigDecimal(4, PRECISION);
+		BigDecimal two = new BigDecimal(2, PRECISION);
+
+		sum = sum.add(new BigDecimal(Math.exp(0), PRECISION));
+		for(double a = 1.0; a < n.doubleValue(); a = a + 1.0) {
 			if(a%2.0==1.0) {
-				sum+=4.0*(Math.exp(-Math.pow(a*increment, 2)));
+				sum = sum.add(four.multiply(new BigDecimal(Math.exp(-Math.pow(a*increment.doubleValue(), 2)), PRECISION), PRECISION), PRECISION);
 			}
 			else {
-				sum+=2.0*(Math.exp(-Math.pow(a*increment, 2)));
+				sum = sum.add(two.multiply(new BigDecimal(Math.exp(-Math.pow(a*increment.doubleValue(), 2)), PRECISION), PRECISION), PRECISION);
 			}
 		}
-		sum += Math.exp(-Math.pow(X, 2));
-		sum *= (X)/n;
-		sum /= 3.0;
-		sum *= 2.0/(Math.sqrt(Math.PI));
+		sum = sum.add(new BigDecimal(Math.exp(-Math.pow(X.doubleValue(), 2)), PRECISION), PRECISION);
+
+		sum = sum.multiply((X).divide(n, PRECISION),PRECISION);
+		sum = sum.divide(new BigDecimal(3.0,PRECISION),PRECISION);
+		sum = sum.multiply( two.divide(new BigDecimal(Math.PI).sqrt(PRECISION), PRECISION), PRECISION);
 		return sum;
 	}
 

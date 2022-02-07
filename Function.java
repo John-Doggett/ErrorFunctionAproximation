@@ -1,4 +1,5 @@
+import java.math.BigDecimal;
 
 public interface Function {
-	public double evaulate(double X);
+	public BigDecimal evaulate(BigDecimal X, int precision);
 }
